@@ -1,0 +1,8 @@
+BASE_FILENAME="server"
+COUNTRY="US"
+STATE="Texas"
+CITY="San Antonio"
+ORGANIZATION="ACME"
+DEPARTMENT="Anvils"
+CN="www.acme.com"
+DAYS="365"

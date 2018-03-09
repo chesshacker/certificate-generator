@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# load environment variables if provided
+CONFIG="${1:-default}"
+if [ -f "input/${CONFIG}" ]; then
+  echo "Loading configuration from ${CONFIG}"
+  source "input/${CONFIG}"
+else
+  echo "Warning: could not find default configuration. Using default values."
+fi
+
+BASE_FILENAME=${BASE_FILENAME:-server}
+echo "Generating private key and certificate for ${BASE_FILENAME}..."
+cd output
+openssl genrsa -des3 -passout pass:x -out "${BASE_FILENAME}.pass.key" 2048
+openssl rsa -passin pass:x -in "${BASE_FILENAME}.pass.key" -out "${BASE_FILENAME}.key"
+rm "${BASE_FILENAME}.pass.key"
+openssl req -new -key "${BASE_FILENAME}.key" -out "${BASE_FILENAME}.csr" \
+  -subj "/C=${COUNTRY:-US}/ST=${STATE:-Texas}/L=${CITY:-San Antonio}/O=${ORGANIZATION:-ACME}/OU=${DEPARTMENT:-Anvils}/CN=${CN:-www.acme.com}"
+openssl x509 -req -days ${DAYS:-365} -in "${BASE_FILENAME}.csr" -signkey "${BASE_FILENAME}.key" -out "${BASE_FILENAME}.crt"

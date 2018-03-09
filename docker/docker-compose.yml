@@ -1,0 +1,12 @@
+version: '3'
+services:
+  generate:
+    build: .
+    volumes:
+      - ../output:/work/output
+      - ../input:/work/input
+# using the bridge network because it doesn't need its own default network
+networks:
+  default:
+    external:
+      name: bridge
