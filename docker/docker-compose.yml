@@ -5,6 +5,7 @@ services:
     volumes:
       - ../output:/work/output
       - ../input:/work/input
+      - ./entrypoint:/entrypoint
 # using the bridge network because it doesn't need its own default network
 networks:
   default:

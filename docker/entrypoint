@@ -12,8 +12,8 @@ fi
 BASE_FILENAME=${BASE_FILENAME:-server}
 echo "Generating private key and certificate for ${BASE_FILENAME}..."
 cd output
-openssl genrsa -des3 -passout pass:x -out "${BASE_FILENAME}.pass.key" 2048
-openssl rsa -passin pass:x -in "${BASE_FILENAME}.pass.key" -out "${BASE_FILENAME}.key"
+openssl genrsa -des3 -passout pass:xxxx -out "${BASE_FILENAME}.pass.key" 2048
+openssl rsa -passin pass:xxxx -in "${BASE_FILENAME}.pass.key" -out "${BASE_FILENAME}.key"
 rm "${BASE_FILENAME}.pass.key"
 openssl req -new -key "${BASE_FILENAME}.key" -out "${BASE_FILENAME}.csr" \
   -subj "/C=${COUNTRY:-US}/ST=${STATE:-Texas}/L=${CITY:-San Antonio}/O=${ORGANIZATION:-ACME}/OU=${DEPARTMENT:-Anvils}/CN=${CN:-www.acme.com}"
