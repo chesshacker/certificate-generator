@@ -12,7 +12,7 @@ fi
 BASE_FILENAME=${BASE_FILENAME:-server}
 echo "Generating private key and certificate for ${BASE_FILENAME}..."
 cd output
-openssl genrsa -des3 -passout pass:xxxx -out "${BASE_FILENAME}.pass.key" 2048
+openssl genrsa -aes256 -passout pass:xxxx -out "${BASE_FILENAME}.pass.key" 2048
 openssl rsa -passin pass:xxxx -in "${BASE_FILENAME}.pass.key" -out "${BASE_FILENAME}.key"
 rm "${BASE_FILENAME}.pass.key"
 openssl req -new -key "${BASE_FILENAME}.key" -out "${BASE_FILENAME}.csr" \
